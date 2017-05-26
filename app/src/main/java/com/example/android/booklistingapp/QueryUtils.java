@@ -108,31 +108,34 @@ public final class QueryUtils {
 
         try {
             JSONObject baseJsonResponse = new JSONObject(bookJSON);
-            JSONArray bookArray = baseJsonResponse.getJSONArray("items");
 
-            for (int i = 0; i < bookArray.length(); i++) {
+            if (!baseJsonResponse.isNull("items")){
+                JSONArray bookArray = baseJsonResponse.getJSONArray("items");
 
-                JSONObject currentBook = bookArray.getJSONObject(i);
-                JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
+                for (int i = 0; i < bookArray.length(); i++) {
 
-                if (!volumeInfo.isNull("title") && !volumeInfo.isNull("authors") && !volumeInfo.isNull("imageLinks")){
-                    JSONObject imageResource = volumeInfo.getJSONObject("imageLinks");
-                    if (!imageResource.isNull("thumbnail")){
-                        String title = volumeInfo.getString("title");
-                        JSONArray authors = volumeInfo.getJSONArray("authors");
+                    JSONObject currentBook = bookArray.getJSONObject(i);
+                    JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
 
-                        ArrayList<String> listAuthors = new ArrayList<>();
-                        for (int j = 0; j < authors.length(); j++) {
-                            listAuthors.add(authors.getString(j));
+                    if (!volumeInfo.isNull("title") && !volumeInfo.isNull("authors") && !volumeInfo.isNull("imageLinks")){
+                        JSONObject imageResource = volumeInfo.getJSONObject("imageLinks");
+                        if (!imageResource.isNull("thumbnail")){
+                            String title = volumeInfo.getString("title");
+                            JSONArray authors = volumeInfo.getJSONArray("authors");
+
+                            ArrayList<String> listAuthors = new ArrayList<>();
+                            for (int j = 0; j < authors.length(); j++) {
+                                listAuthors.add(authors.getString(j));
+                            }
+
+                            String author = TextUtils.join(", ", listAuthors);
+
+                            String image = imageResource.getString("thumbnail");
+
+                            Book book = new Book(title, author, image);
+
+                            books.add(book);
                         }
-
-                        String author = TextUtils.join(", ", listAuthors);
-
-                        String image = imageResource.getString("thumbnail");
-
-                        Book book = new Book(title, author, image);
-
-                        books.add(book);
                     }
                 }
             }

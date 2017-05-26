@@ -148,9 +148,9 @@ public class MainActivity extends AppCompatActivity {
                                             mEmptyStateTextView.setText(R.string.bookSearching);
                                             bookListView.setEmptyView(mEmptyStateTextView);
                                         }else {
-                                            if (mAdapter != null){
+                                            /*if (mAdapter != null){
                                                 mAdapter.clear();
-                                            }
+                                            }*/
                                             REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?maxResults=20&q=" + s.toString().toLowerCase();
                                             mAdapter = new BookAdapter(getBaseContext(), new ArrayList<Book>());
 
