@@ -77,14 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.clear();
             }
         };
-        //bookListView.setEmptyView(mEmptyStateTextView);
-
-        /*bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Book currentBook = mAdapter.getItem(position);
-            }
-        });*/
 
         loadingIndicator = (ProgressBar) findViewById(R.id.loading_indicator);
         search = (EditText)findViewById(R.id.etSearch);
@@ -97,35 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*if (s.toString().isEmpty()){
-                    mAdapter.clear();
-                    mEmptyStateTextView.setText(R.string.bookSearching);
-                    bookListView.setEmptyView(mEmptyStateTextView);
-                }else {
-                    if (mAdapter != null){
-                        mAdapter.clear();
-                    }
-                    REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?maxResults=20&q=" + s.toString().toLowerCase();
-                    mAdapter = new BookAdapter(getBaseContext(), new ArrayList<Book>());
 
-                    bookListView.setAdapter(mAdapter);
-
-                    ConnectivityManager connMgr = (ConnectivityManager)
-                            getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                    NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-                    if (networkInfo != null && networkInfo.isConnected()) {
-                        mEmptyStateTextView.setVisibility(View.GONE);
-                        LoaderManager loaderManager = getLoaderManager();
-                        loaderManager.restartLoader(Book_LOADER_ID, null, myCallbacks);
-                    } else {
-                        loadingIndicator.setVisibility(View.GONE);
-
-                        mEmptyStateTextView.setText(R.string.no_internet_connection);
-                        bookListView.setEmptyView(mEmptyStateTextView);
-                    }
-                }*/
             }
 
             private Timer timer = new Timer();
@@ -148,9 +112,6 @@ public class MainActivity extends AppCompatActivity {
                                             mEmptyStateTextView.setText(R.string.bookSearching);
                                             bookListView.setEmptyView(mEmptyStateTextView);
                                         }else {
-                                            /*if (mAdapter != null){
-                                                mAdapter.clear();
-                                            }*/
                                             REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?maxResults=20&q=" + s.toString().toLowerCase();
                                             mAdapter = new BookAdapter(getBaseContext(), new ArrayList<Book>());
 
