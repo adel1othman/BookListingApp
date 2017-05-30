@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -112,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
                                             mEmptyStateTextView.setText(R.string.bookSearching);
                                             bookListView.setEmptyView(mEmptyStateTextView);
                                         }else {
-                                            REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?maxResults=20&q=" + s.toString().toLowerCase();
+                                            String searchQuery = wordsCounter(s.toString());
+                                            REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?key=AIzaSyBXTHLrVF-ByzdwDYE1mvSBKIj0e5ByoPI&maxResults=20&q=" + searchQuery;
                                             mAdapter = new BookAdapter(getBaseContext(), new ArrayList<Book>());
 
                                             bookListView.setAdapter(mAdapter);
@@ -141,5 +143,31 @@ public class MainActivity extends AppCompatActivity {
                 );
             }
         });
+    }
+
+    public String wordsCounter(String input)
+    {
+        String word = "";
+        ArrayList<String> words = new ArrayList<>();
+        int i = 0;
+
+        for (char item : input.toCharArray()) {
+            i++;
+            if (!Character.isWhitespace(item)) {
+                word += item;
+                if (i == input.length())
+                {
+                    words.add(word);
+                }
+            }
+            else {
+                if (!word.isEmpty())
+                {
+                    words.add(word);
+                }
+                word = "";
+            }
+        }
+        return TextUtils.join("+", words);
     }
 }
