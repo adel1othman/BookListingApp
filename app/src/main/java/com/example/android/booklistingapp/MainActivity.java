@@ -119,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
                                             bookListView.setAdapter(mAdapter);
 
-                                            ConnectivityManager connMgr = (ConnectivityManager)
-                                                    getSystemService(Context.CONNECTIVITY_SERVICE);
+                                            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
                                             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
